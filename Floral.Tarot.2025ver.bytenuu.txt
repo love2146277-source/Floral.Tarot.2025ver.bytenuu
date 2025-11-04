@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>花語抽卡</title>
+<style>
+  body { font-family: Arial, sans-serif; text-align: center; background: #fff0f5; margin: 0; padding: 20px; }
+  h1 { color: #d85ed6; }
+  .btn { padding: 10px 20px; margin: 10px; font-size: 18px; border: none; border-radius: 8px; cursor: pointer; }
+  .card-container { display: flex; justify-content: center; margin-top: 20px; }
+  .card { margin: 0 10px; cursor: pointer; border: 2px solid #d8b4e2; border-radius: 10px; overflow: hidden; transition: transform 0.2s; }
+  .card:hover { transform: scale(1.05); }
+  .card img { width: 120px; height: 160px; display: block; }
+  .result { margin-top: 30px; font-size: 20px; color: #333; }
+  .star { color: gold; font-weight: bold; font-size: 24px; }
+</style>
+</head>
+<body>
+
+<h1>花語抽卡</h1>
+
+<div id="step1">
+  <p>選擇想測的主題：</p>
+  <button class="btn" onclick="selectTopic('戀愛')">戀愛</button>
+  <button class="btn" onclick="selectTopic('學業')">學業</button>
+  <button class="btn" onclick="selectTopic('日常')">日常</button>
+  <button class="btn" onclick="selectTopic('目標')">目標</button>
+</div>
+
+<div id="step2" style="display:none;">
+  <p>選一張花卡：</p>
+  <div class="card-container">
+    <div class="card" onclick="drawCard('百日草')">
+      <img src="https://picsum.photos/120/160?random=1" alt="百日草">
+      <p>百日草</p>
+    </div>
+    <div class="card" onclick="drawCard('山茶花')">
+      <img src="https://picsum.photos/120/160?random=2" alt="山茶花">
+      <p>山茶花</p>
+    </div>
+    <div class="card" onclick="drawCard('睡蓮')">
+      <img src="https://picsum.photos/120/160?random=3" alt="睡蓮">
+      <p>睡蓮</p>
+    </div>
+  </div>
+</div>
+
+<div id="step3" style="display:none;">
+  <p>抽卡結果：</p>
+  <div class="result" id="resultText"></div>
+</div>
+
+<script>
+let topic = '';
+
+function selectTopic(t) {
+  topic = t;
+  document.getElementById('step1').style.display = 'none';
+  document.getElementById('step2').style.display = 'block';
+}
+
+function drawCard(flower) {
+  // 隨機星級 ★3~★5
+  const stars = Math.floor(Math.random() * 3) + 3;
+  
+  // 花語對應文字
+  const meanings = {
+    "百日草": "代表持續的努力與無懈可擊的耐力。",
+    "山茶花": "象徵堅定的愛與清新的人際關係。",
+    "睡蓮": "象徵夢想的實現與內心的寧靜。"
+  };
+  
+  const starSymbols = '★'.repeat(stars);
+  const resultText = `${topic}主題\n抽到: ${flower} ${starSymbols}\n花語: ${meanings[flower]}`;
+  
+  document.getElementById('step2').style.display = 'none';
+  document.getElementById('step3').style.display = 'block';
+  document.getElementById('resultText').innerText = resultText;
+}
+</script>
+
+</body>
+</html>
